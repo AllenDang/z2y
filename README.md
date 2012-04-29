@@ -1,4 +1,6 @@
-#z2y converts (and only converts) chinese character in utf8 encoding into initial Pinyin string.
+##About
+
+z2y converts (and only converts) chinese character in utf8 encoding into initial Pinyin string.
 z2y 会把utf8格式的汉字字符串转换成拼音首字母字符串
 
 	E.g.
