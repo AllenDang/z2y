@@ -5,8 +5,8 @@
 package z2y_test
 
 import (
+	. "github.com/AllenDang/z2y"
 	"testing"
-	. "z2y"
 )
 
 var data = []struct {
