@@ -1,7 +1,4 @@
-About z2y
-==========
-
-z2y converts (and only converts) chinese character in utf8 encoding into initial Pinyin string.
+#z2y converts (and only converts) chinese character in utf8 encoding into initial Pinyin string.
 z2y 会把utf8格式的汉字字符串转换成拼音首字母字符串
 
 	E.g.
@@ -12,23 +9,25 @@ z2y 会把utf8格式的汉字字符串转换成拼音首字母字符串
 	"1234890" -> ""
 	"!@#$%^&*()~,.<>/?';:[]{}" -> ""
 
-Setup
-=====
+##Setup
 
-1. Make sure you have a working Go installation, you can get it from:
+###1. Make sure you have a working Go installation, you can get it from:
    http://golang.org/
    
-2. Create a "gopath" directory if you do not have one yet and set the
+###2. Create a "gopath" directory if you do not have one yet and set the
    GOPATH variable accordingly. For example:
    mkdir -p go-externals/src
    export GOPATH=${PWD}/go-externals
 
-3. go get github.com/AllenDang/z2y
+###3. go get github.com/AllenDang/z2y
 
-4. go install github.com/AllenDang/z2y
+###4. go install github.com/AllenDang/z2y
 
-Contribute
-==========
+##Usage
+	py := z2y.ConvertToPy("你好世界")
+	println(py) //output is "nhsj"
+
+##Contribute
 
 Contributions in form of design, code, documentation, bug reporting or other
 ways you see fit are very welcome.
