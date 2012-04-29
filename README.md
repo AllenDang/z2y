@@ -4,13 +4,13 @@ About z2y
 z2y converts (and only converts) chinese character in utf8 encoding into initial Pinyin string.
 z2y 会把utf8格式的汉字字符串转换成拼音首字母字符串
 
-E.g.
-"啊薄车单饿飞干很见空冷吗嫩哦盘群润三图玩先烟总" -> "abcdefghjklmnopqrstwxyz"
-"世界你好！hello world!" -> "sjnh"
-"把UTF8字符转换成gbk" -> "bzfzhc"
-"all english" -> ""
-"1234890" -> ""
-"!@#$%^&*()~,.<>/?';:[]{}" -> ""
+	E.g.
+	"啊薄车单饿飞干很见空冷吗嫩哦盘群润三图玩先烟总" -> "abcdefghjklmnopqrstwxyz"
+	"世界你好！hello world!" -> "sjnh"
+	"把UTF8字符转换成gbk" -> "bzfzhc"
+	"all english" -> ""
+	"1234890" -> ""
+	"!@#$%^&*()~,.<>/?';:[]{}" -> ""
 
 Setup
 =====
