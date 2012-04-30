@@ -6,21 +6,20 @@ package z2y
 
 import (
 	"code.google.com/p/mahonia"
+	"strings"
 )
 
 // ConvertToPY converts (and only converts) chinese character in utf8 encoding into initial Pinyin string.
 // E.g.
 // "啊薄车单饿飞干很见空冷吗嫩哦盘群润三图玩先烟总" -> "abcdefghjklmnopqrstwxyz"
-// "世界你好！hello world!" -> "sjnh"
-// "把UTF8字符转换成gbk" -> "bzfzhc"
-// "all english" -> ""
-// "1234890" -> ""
-// "!@#$%^&*()~,.<>/?';:[]{}" -> ""
+// "世界你好！hello world!" -> "sjnh！hello world!"
+// "把UTF8字符转换成gbk" -> "bUTF8zfzhcgbk"
+// "all english" -> "all english"
+// "1234890" -> "1234890"
+// "!@#$%^&*()~,.<>/?';:[]{}" -> "!@#$%^&*()~,.<>/?';:[]{}"
 func ConvertToPY(s string) string {
-	//Convert utf8 to gbk
 	e := mahonia.NewEncoder("gbk")
 	str := e.ConvertString(s)
-	println(str)
 
 	mapfunc := func(r int32) rune {
 		switch {
@@ -72,22 +71,34 @@ func ConvertToPY(s string) string {
 			return 'z'
 		}
 
-		return 0
+		return r
 	}
 
 	l := len(str)
 	buf := make([]rune, 0)
 
-	for i := 0; i < l && (i+1) < l; {
-		if str[i] <= 'z' {
+	for i := 0; i < l; {
+		switch {
+		case str[i] <= '~':
+			buf = append(buf, rune(str[i]))
 			i += 1
-			continue
+		case (i + 1) < l:
+			a := int32(str[i])*256 + int32(str[i+1]) - 65536
+
+			if r := mapfunc(a); a == r { // a is chinese punctuation
+				decoder := mahonia.NewDecoder("gbk")
+				decodedStr := decoder.ConvertString(str[i : i+2])
+				sReader := strings.NewReader(decodedStr)
+				ch, _, _ := sReader.ReadRune()
+				buf = append(buf, ch)
+			} else {
+				buf = append(buf, r)
+			}
+			i += 2
+		default:
+			buf = append(buf, rune(str[i]))
+			i += 1
 		}
-		a := int32(str[i])*256 + int32(str[i+1]) - 65536
-		if r := mapfunc(a); r != 0 { // r will be 0 is input is not a Chinese character.
-			buf = append(buf, r)
-		}
-		i += 2
 	}
 
 	return string(buf)
